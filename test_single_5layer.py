@@ -4,8 +4,10 @@ import init_cnn_5layer
 import dlib
 import threading
 import sys
+import time
 
 if __name__ == '__main__':
+	
 	name={"[0]":'wang','[1]':'xu','[2]':'liu','[3]':'zhang','unknown':'unknown'}
 	face_detector=dlib.get_frontal_face_detector()
 
@@ -19,7 +21,7 @@ if __name__ == '__main__':
 	if (not cap.isOpened()):
 		print 'fail to open camera!!'
 		sys.exit(0)
-	
+	time.sleep(2)
 	#first run or not
 	firstrun=True
 	if (firstrun):
@@ -62,7 +64,12 @@ if __name__ == '__main__':
 		org0=(20,20)
 		cv2.putText(frame,str(framecount/10),org0,1,1,(0,255,255))
 		cv2.imshow('show',frame)
-		cv2.waitKey(10)	
+		key=cv2.waitKey(10)
+		
+		if key & 0xff==ord('q'):
+			break
+cap.release()	
+cv2.destroyAllWindows()
 			
 		
 		
